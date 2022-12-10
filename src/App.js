@@ -13,7 +13,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Main/>}/>
 					<Route path="/sessoes/:idFilme" element={<Sessoes/>}/>
-					<Route path="/assentos" element={<Assentos/>}/>
+					<Route path="/assentos/:idSessao" element={<Assentos/>}/>
 					<Route path="/sucesso" element={<Sucesso/>}/>
 				</Routes>
 			</BrowserRouter>
