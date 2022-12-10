@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import axios from 'axios'
 import {useState, useEffect} from 'react'
-import {BrowserRouter, Routes, Route, Link, useParams} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Link, useParams, useNavigate} from "react-router-dom";
 
 
 export default function Assentos(props){
@@ -15,6 +15,8 @@ export default function Assentos(props){
     const [CPF, setCPF] = useState("");
 
 	const idFilme = useParams().idSessao;
+
+    const nav = useNavigate();
 
     useEffect(()=>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idFilme}/seats`);
@@ -44,13 +46,17 @@ export default function Assentos(props){
 
     function reservar(event){
         event.preventDefault();
-        const req = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-        {
-            ids: [...selecionados],
-            name: nome,
-            cpf: CPF
+        if (selecionados.length > 0){
+            const req = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+            {
+                ids: [...selecionados],
+                name: nome,
+                cpf: CPF
+            }
+            );      
+            
+            req.then((r)=>nav('/sucesso'));
         }
-        );
     }
 
     return(<>
@@ -87,12 +93,14 @@ export default function Assentos(props){
         <Form>
             <form onSubmit={reservar}>
                 <div>Nome do comprador:</div>
-                <input type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder={"Digite seu nome..."}/>
+                <input required type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder={"Digite seu nome..."}/>
 
                 <div>CPF do comprador:</div>
-                <input type="text" value={CPF} onChange={e => setCPF(e.target.value)} placeholder={"Digite seu CPF..."}/>
+                <input required type="text" value={CPF} onChange={e => setCPF(e.target.value)} placeholder={"Digite seu CPF..."}/>
 
-                <button type="submit">Reservar assento(s)</button>
+                    <button type="submit">
+                        Reservar assento(s)
+                    </button>
             </form>
         </Form>
         <Footer>
