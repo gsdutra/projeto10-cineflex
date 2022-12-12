@@ -38,7 +38,7 @@ export default function Sucesso(props){
 			</Normal>
 		</div>
 		<Botao>
-			<Link to={"/"}><button data-test="go-gome-btn">Voltar para Home</button></Link>
+			<Link to="/"><button data-test="go-home-btn">Voltar para Home</button></Link>
 		</Botao>
 	</>)
 }
