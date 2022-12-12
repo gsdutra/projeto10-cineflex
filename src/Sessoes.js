@@ -27,11 +27,11 @@ export default function Sessoes(props){
 		</Sele>
 		<Dias>
 			{listaHorarios.map((e, i)=>
-				<Dia key={i}>
+				<Dia key={i} data-test="movie-day">
 					{e.weekday} - {e.date}
 					<Horarios>
 						{e.showtimes.map((elem, ind)=>
-								<Link to={`/assentos/${idFilme}`}>
+								<Link to={`/assentos/${idFilme}`} data-test="showtime">
 									<div key={ind}>
 										{elem.name}
 									</div>
@@ -42,7 +42,7 @@ export default function Sessoes(props){
 				</Dia>
 			)}
 		</Dias>
-		<Footer>
+		<Footer data-test="footer">
 			<Moldura>
 				<img src={objFilme.posterURL}/>
 			</Moldura>

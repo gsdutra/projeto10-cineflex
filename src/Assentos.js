@@ -83,7 +83,8 @@ export default function Assentos(props){
                 objFilme.seats.map((e, i) =>
                     <Assento key={e.id} disponibilidade={e.isAvailable}
                     selecionado={selecionados.includes(e.id)?true:false}
-                    onClick={()=>addAssento(e.id, e.isAvailable, e.name)}>
+                    onClick={()=>addAssento(e.id, e.isAvailable, e.name)}
+                    data-test="seat">
                         <div>
                             {e.name}
                         </div>
@@ -105,17 +106,17 @@ export default function Assentos(props){
         <Form>
             <form onSubmit={reservar}>
                 <div>Nome do comprador:</div>
-                <input required type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder={"Digite seu nome..."}/>
+                <input required type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder={"Digite seu nome..."} data-test="client-name"/>
 
                 <div>CPF do comprador:</div>
-                <input required type="text" value={CPF} onChange={e => setCPF(e.target.value)} placeholder={"Digite seu CPF..."}/>
+                <input required type="text" value={CPF} onChange={e => setCPF(e.target.value)} placeholder={"Digite seu CPF..."} data-test="client-cpf"/>
 
-                    <button type="submit">
+                    <button type="submit" data-test="book-seat-btn">
                         Reservar assento(s)
                     </button>
             </form>
         </Form>
-        <Footer>
+        <Footer data-test="footer">
 			<Moldura>
 				<img src={objFilme === undefined?
                     null:

@@ -23,7 +23,7 @@ export default function Main(props){
             listaFilmes.map((e, i)=>(
                 <PosterFilme key={i}>
                     <Link to={`/sessoes/${e.id}`}>
-                        <Moldura>
+                        <Moldura data-test="movie">
                             <img src={e.posterURL}/>
                         </Moldura>
                     </Link>
