@@ -10,6 +10,8 @@ export default function Assentos(props){
 
     const [selecionados, setSelecionados] = useState([]);
 
+    const [numAssentos, setNumAssentos] = useState([]);
+
     const [nome, setNome] = useState("");
 
     const [CPF, setCPF] = useState("");
@@ -28,7 +30,7 @@ export default function Assentos(props){
         }
     },[]);
 
-    function addAssento(assento, disponibilidade){
+    function addAssento(assento, disponibilidade, nomeNum){
         if (disponibilidade === true){
             if (selecionados.includes(assento)){
                 const newArr = [...selecionados];
@@ -37,6 +39,7 @@ export default function Assentos(props){
             }else{
                 const newArr = [...selecionados, assento];
                 setSelecionados(newArr);
+                setNumAssentos(nomeNum);
             }
         }
         else{
@@ -53,7 +56,16 @@ export default function Assentos(props){
                 name: nome,
                 cpf: CPF
             }
-            );      
+            );
+
+            props.setDados({
+                nomeFilme: objFilme.movie.title,
+                diaFilme: objFilme.day.date,
+                horaFilme: objFilme.name,
+                assentos: [...numAssentos],
+                nomeComprador: nome,
+                CPF: CPF
+            });
             
             req.then((r)=>nav('/sucesso'));
         }
@@ -71,7 +83,7 @@ export default function Assentos(props){
                 objFilme.seats.map((e, i) =>
                     <Assento key={e.id} disponibilidade={e.isAvailable}
                     selecionado={selecionados.includes(e.id)?true:false}
-                    onClick={()=>addAssento(e.id, e.isAvailable)}>
+                    onClick={()=>addAssento(e.id, e.isAvailable, e.name)}>
                         <div>
                             {e.name}
                         </div>
@@ -165,6 +177,9 @@ form{
         border: none;
         margin-top: 57px;
         margin-bottom: 200px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 400;
         
         transition: .2s;
 		&:hover{
